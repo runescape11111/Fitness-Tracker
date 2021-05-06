@@ -3,7 +3,9 @@ let db = require("../models");
 
 mongoose.connect("mongodb://localhost/workout", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  //this gets rid of the error when seeding
+  useUnifiedTopology: true
 });
 
 let workoutSeed = [
