@@ -174,7 +174,6 @@ function populateChart(data) {
 }
 
 function calculateTotalDuration(data) {
-  console.log(data);
   let totals = [];
 
   data.forEach((workout) => {
@@ -220,7 +219,8 @@ function workoutNames(data) {
   });
 
   // return de-duplicated array with JavaScript `Set` object
-  return [...new Set(workouts)];
+  // return [...new Set(workouts)];
+  return workouts;
 }
 
 // get all workout data from back-end

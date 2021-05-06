@@ -14,7 +14,6 @@ async function initWorkout() {
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
-    console.log(workoutSummary.totalDuration);
     renderWorkoutSummary(workoutSummary);
   } else {
     renderNoWorkoutText()
@@ -23,7 +22,7 @@ async function initWorkout() {
 
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
-    //bug fix attemtp
+    //bug fix
     acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
