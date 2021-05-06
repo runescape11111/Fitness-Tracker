@@ -1,7 +1,9 @@
 async function initWorkout() {
+  //get the last workout with method get and route /api/workouts
   const lastWorkout = await API.getLastWorkout();
-  console.log("Last workout:", lastWorkout);
+  // console.log("Last workout:", lastWorkout);
   if (lastWorkout) {
+    //look for the Continue Workout Button (anchor) with the corresponding href and add the id to its query
     document
       .querySelector("a[href='/exercise?']")
       .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
@@ -12,7 +14,7 @@ async function initWorkout() {
       numExercises: lastWorkout.exercises.length,
       ...tallyExercises(lastWorkout.exercises)
     };
-
+    console.log(workoutSummary.totalDuration);
     renderWorkoutSummary(workoutSummary);
   } else {
     renderNoWorkoutText()
@@ -21,6 +23,8 @@ async function initWorkout() {
 
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
+    //bug fix attemtp
+    acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;

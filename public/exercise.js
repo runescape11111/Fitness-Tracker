@@ -12,7 +12,7 @@ const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout")
+const newWorkout = document.querySelector(".new-workout");
 
 let workoutType = null;
 let shouldNavigateAway = false;
@@ -28,10 +28,11 @@ async function initExercise() {
     location.search = "?id=" + workout._id;
   }
 
-}
+};
 
 initExercise();
 
+//decides which form fields to display depending on user choice
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
 
@@ -47,8 +48,9 @@ function handleWorkoutTypeChange(event) {
   }
 
   validateInputs();
-}
+};
 
+//check if inputs are valid; if invalid, buttons are disabled
 function validateInputs() {
   let isValid = true;
 
@@ -93,8 +95,9 @@ function validateInputs() {
     completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
-}
+};
 
+//adds exercise through the api /api/workouts/:id, method: put
 async function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -117,14 +120,15 @@ async function handleFormSubmit(event) {
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
-}
+};
 
+//when toast animation ends, redirect to home page
 function handleToastAnimationEnd() {
   toast.removeAttribute("class");
   if (shouldNavigateAway) {
     location.href = "/";
   }
-}
+};
 
 function clearInputs() {
   cardioNameInput.value = "";
@@ -135,20 +139,24 @@ function clearInputs() {
   repsInput.value = "";
   resistanceDurationInput.value = "";
   weightInput.value = "";
-}
+};
 
+//if a workout type is chosen, add change event listener to decide which form fields to show up
 if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
-}
+};
+
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;
     handleFormSubmit(event);
   });
-}
+};
+
 if (addButton) {
   addButton.addEventListener("click", handleFormSubmit);
-}
+};
+
 toast.addEventListener("animationend", handleToastAnimationEnd);
 
 document
